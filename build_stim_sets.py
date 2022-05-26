@@ -7,8 +7,6 @@ files to data/sub-1234.
 Test mode writes data/sub-9999 for checking numbers of encoding stimuli,
 targets, lures, and foils for each block without decoding the randomization.
 
-Overly commented, with description of each variable to help those new to python.
-
 Examples
 --------
 python build_stim_sets.py --subj 1234
