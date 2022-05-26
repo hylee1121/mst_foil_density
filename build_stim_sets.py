@@ -1,11 +1,11 @@
 """Make stimulus files for foil density MST project.
 
-Generate 4 blocks of encoding and test stimulus files, with
-each block havin a different number of foils. Save output excel
+Generate 4 blocks of encoding and retrieval stimulus files, with
+each block having a different number of foils. Save output excel
 files to data/sub-1234.
 
 Test mode writes data/sub-9999 for checking numbers of encoding stimuli,
-targets, lures, and foils for each block without decoding the randomization.
+targets, lures, and foils for each block without randomization.
 
 Examples
 --------
@@ -67,7 +67,7 @@ def main():
 
     # Setup paradigm - hardcoded for moving code to PsychoPy.
     #   block_foil : length = number of runs, value = number of foils in run
-    block_foil = [0, 12, 24, 36]
+    block_foil = [0, 12, 24, 48]
     num_targ = 24
     num_lure = 24
 
@@ -125,9 +125,8 @@ def main():
         # foil lists according to their desired length. Switch file name to
         # make lures.
         block_stim_iter = iter(block_stim)
-        ret_num = [num_targ, num_lure, num_foil]
         ret_targ, ret_lure, ret_foil = [
-            list(islice(block_stim_iter, x)) for x in ret_num
+            list(islice(block_stim_iter, x)) for x in [num_targ, num_lure, num_foil]
         ]
         ret_lure = [x.replace("a.jpg", "b.jpg") for x in ret_lure]
 
@@ -148,7 +147,6 @@ def main():
         )
         ret_out = os.path.join(data_dir, f"retrieval{block_num}.xlsx")
         df_ret.to_excel(ret_out, index=False)
-
         block_num += 1
 
     # Write out encoding excel sheet.
